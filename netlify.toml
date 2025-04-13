@@ -1,55 +1,10 @@
-# Netlify配置文件
 [build]
   command = "npm run build"
   publish = ".next"
 
-# 环境变量配置
 [build.environment]
   NEXT_TELEMETRY_DISABLED = "1"
+  NODE_VERSION = "18"
 
-# Next.js特定的处理
-[build.processing]
-  skip_processing = false
-[build.processing.css]
-  bundle = false
-  minify = false
-[build.processing.js]
-  bundle = false
-  minify = false
-[build.processing.html]
-  pretty_urls = true
-[build.processing.images]
-  compress = true
-
-# 重定向和自定义头部配置
 [[plugins]]
-package = "@netlify/plugin-nextjs"
-
-# 处理app router的路由重写
-[[redirects]]
-  from = "/*"
-  to = "/_next/static/:splat"
-  status = 200
-  force = false
-  conditions = {Path = ["/_next/static/*"]}
-
-# 处理API路由
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/nextjs-api/:splat"
-  status = 200
-
-# 处理所有其他路由
-[[redirects]]
-  from = "/*"
-  to = "/.netlify/functions/nextjs-server"
-  status = 200
-
-# 添加安全头部
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin" 
+  package = "@netlify/plugin-nextjs" 
